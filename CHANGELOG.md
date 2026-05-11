@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2](https://github.com/Mukhametvaleev/prollm/compare/v0.1.1...v0.1.2) (2026-05-11)
+
+
+### 👷 CI/CD
+
+* sync uv.lock inside the release-please flow ([#14](https://github.com/Mukhametvaleev/prollm/issues/14)) ([0490bfa](https://github.com/Mukhametvaleev/prollm/commit/0490bfac31551fe7834cf64f6c68799f07a2cd33))
+* sync uv.lock to 0.1.1 and exclude CHANGELOG from markdownlint ([#13](https://github.com/Mukhametvaleev/prollm/issues/13)) ([9701f59](https://github.com/Mukhametvaleev/prollm/commit/9701f596dbc94acce1c4ac1818bd6daf0a240f80))
+
 ## [0.1.1](https://github.com/Mukhametvaleev/prollm/compare/v0.1.0...v0.1.1) (2026-05-11)
 
 
