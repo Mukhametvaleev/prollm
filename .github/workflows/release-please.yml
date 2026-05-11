@@ -8,6 +8,10 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  # Opt into Node 24 ahead of the 2026-06-02 forced switch; remove after that.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
