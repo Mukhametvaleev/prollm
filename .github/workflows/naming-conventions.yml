@@ -1,0 +1,69 @@
+name: Naming Conventions
+
+on:
+  pull_request:
+    branches: [develop]
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  validate-pr-title:
+    name: Validate PR title (Conventional Commits)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            perf
+            refactor
+            revert
+            docs
+            style
+            test
+            build
+            ci
+            chore
+          requireScope: false
+          disallowScopes: |
+            release
+
+  validate-branch-name:
+    name: Validate branch name
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name pattern
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+        run: |
+          set -euo pipefail
+
+          # Skip bot-generated branches (Dependabot, release-please, Renovate)
+          case "$BRANCH_NAME" in
+            dependabot/*|release-please--*|renovate/*)
+              echo "Skipping bot branch: $BRANCH_NAME"
+              exit 0
+              ;;
+          esac
+
+          pattern='^(feat|fix|perf|refactor|revert|docs|style|test|build|ci|chore)/([0-9]+-)?[a-z0-9][a-z0-9-]*[a-z0-9]$'
+
+          if [[ ! "$BRANCH_NAME" =~ $pattern ]]; then
+            {
+              echo "::error::Branch name '$BRANCH_NAME' does not match the required pattern."
+              echo "::error::Expected: <type>/[<issue-number>-]<kebab-topic>"
+              echo "::error::Examples:"
+              echo "::error::  feat/123-streaming-support"
+              echo "::error::  fix/anthropic-empty-content"
+              echo "::error::  chore/upgrade-pytest"
+              echo "::error::Allowed types: feat, fix, perf, refactor, revert, docs, style, test, build, ci, chore"
+            } >&2
+            exit 1
+          fi
+
+          echo "Branch name '$BRANCH_NAME' is valid."

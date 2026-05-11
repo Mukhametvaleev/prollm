@@ -1,0 +1,103 @@
+site_name: prollm
+site_description: Unified Python SDK for OpenAI, Anthropic, and Google Gemini completion APIs.
+site_url: https://mukhametvaleev.github.io/prollm/
+site_author: Andrei Mukhametvaleev
+
+repo_url: https://github.com/Mukhametvaleev/prollm
+repo_name: Mukhametvaleev/prollm
+edit_uri: edit/develop/docs/
+
+copyright: Copyright &copy; 2026 Andrei Mukhametvaleev
+
+theme:
+  name: material
+  language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.action.edit
+    - content.code.annotate
+    - content.code.copy
+    - navigation.indexes
+    - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.suggest
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - section-index
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            heading_level: 2
+            members_order: alphabetical
+            merge_init_into_class: true
+            separate_signature: true
+            show_root_heading: true
+            show_signature_annotations: true
+            show_source: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            signature_crossrefs: true
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - footnotes
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Configuration: configuration.md
+  - API reference:
+      - reference/index.md
+      - GatewayClient: reference/client.md
+      - Models: reference/models.md
+      - Exceptions: reference/exceptions.md
+      - Providers: reference/providers.md
+  - Contributing: contributing.md
+  - Changelog: changelog.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Mukhametvaleev/prollm
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/prollm/

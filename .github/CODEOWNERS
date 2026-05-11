@@ -1,0 +1,27 @@
+# CODEOWNERS for prollm
+#
+# Syntax: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-configuration/customizing-your-repository/about-code-owners
+# Each line is a file pattern followed by one or more owners.
+# The LAST matching pattern wins.
+
+# Global fallback — every change requires review from @Mukhametvaleev
+*                                  @Mukhametvaleev
+
+# Public surface — extra scrutiny for breaking changes
+/prollm/__init__.py                @Mukhametvaleev
+/prollm/client.py                  @Mukhametvaleev
+/prollm/exceptions.py              @Mukhametvaleev
+/prollm/models.py                  @Mukhametvaleev
+/prollm/providers/base.py          @Mukhametvaleev
+
+# Per-provider implementations
+/prollm/providers/anthropic.py     @Mukhametvaleev
+/prollm/providers/gemini.py        @Mukhametvaleev
+/prollm/providers/openai.py        @Mukhametvaleev
+
+# CI / release tooling
+/.github/                          @Mukhametvaleev
+/.pre-commit-config.yaml           @Mukhametvaleev
+/pyproject.toml                    @Mukhametvaleev
+/release-please-config.json        @Mukhametvaleev
+/.release-please-manifest.json     @Mukhametvaleev

@@ -1,0 +1,83 @@
+name: Bug report
+description: Report a defect, regression, or unexpected behavior in prollm.
+title: "bug: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report. Please fill in the sections below.
+        For security vulnerabilities, do not open a public issue — see SECURITY.md.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is happening? What did you expect to happen?
+      placeholder: GatewayClient.complete raises ... instead of returning ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Minimal Python snippet that reproduces the issue.
+      render: python
+      placeholder: |
+        from prollm import GatewayClient
+
+        client = GatewayClient(api_key="sk-...", provider="openai")
+        client.complete("hi")
+    validations:
+      required: true
+
+  - type: textarea
+    id: traceback
+    attributes:
+      label: Traceback (if any)
+      description: Full traceback. Redact secrets first.
+      render: text
+
+  - type: input
+    id: package_version
+    attributes:
+      label: prollm version
+      description: "Run: python -c 'import prollm; print(prollm.__version__)'"
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: python_version
+    attributes:
+      label: Python version
+      placeholder: "3.14.0"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "macOS 15.0 / Ubuntu 24.04 / Windows 11"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Affected provider
+      options:
+        - anthropic
+        - gemini
+        - openai
+        - not provider-specific
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Anything else worth knowing (proxy setup, network constraints, related issues).

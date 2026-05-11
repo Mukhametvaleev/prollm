@@ -1,0 +1,9 @@
+.venv/
+htmlcov/
+site/
+coverage.xml
+CHANGELOG.md
+uv.lock
+.release-please-manifest.json
+# mkdocstrings ":::" directives use indentation that prettier breaks
+docs/reference/
