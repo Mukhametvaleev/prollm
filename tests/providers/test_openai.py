@@ -56,7 +56,7 @@ def test_complete_uses_request_model_override(mocker: MockerFixture) -> None:
 
 def test_complete_honors_custom_base_url_and_timeout(mocker: MockerFixture) -> None:
     """``OpenAIProvider`` forwards ``base_url`` + ``timeout`` to the HTTP request."""
-    post = mocker.patch(
+    mocked_post = mocker.patch(
         "httpx.Client.post",
         return_value=make_openai_success_response(),
     )
@@ -67,7 +67,7 @@ def test_complete_honors_custom_base_url_and_timeout(mocker: MockerFixture) -> N
     )
     provider.complete(CompletionRequest(prompt="hi"))
 
-    call_args = post.call_args
+    call_args = mocked_post.call_args
     assert call_args.args[0] == "https://corp-proxy.example.com/openai/v1/chat/completions"
     assert call_args.kwargs["timeout"] == 5.0
 
@@ -82,7 +82,7 @@ def test_provider_defaults_when_no_overrides() -> None:
 
 def test_complete_rate_limit_raises_after_retries(mocker: MockerFixture) -> None:
     """``OpenAIProvider.complete`` raises ``RateLimitError`` and retries on persistent 429s."""
-    post = mocker.patch(
+    mocked_post = mocker.patch(
         "httpx.Client.post",
         return_value=make_rate_limit_response(),
     )
@@ -91,7 +91,7 @@ def test_complete_rate_limit_raises_after_retries(mocker: MockerFixture) -> None
     with pytest.raises(RateLimitError):
         provider.complete(CompletionRequest(prompt="hi"))
 
-    assert post.call_count == 3
+    assert mocked_post.call_count == 3
 
 
 def test_complete_non_success_raises_provider_error(mocker: MockerFixture) -> None:
@@ -102,10 +102,10 @@ def test_complete_non_success_raises_provider_error(mocker: MockerFixture) -> No
     )
     provider = OpenAIProvider(api_key="sk-test")
 
-    with pytest.raises(ProviderError) as exc_info:
+    with pytest.raises(ProviderError) as exception_info:
         provider.complete(CompletionRequest(prompt="hi"))
 
-    assert exc_info.value.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
+    assert exception_info.value.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
 
 
 async def test_acomplete_returns_completion_response(mocker: MockerFixture) -> None:
@@ -126,17 +126,17 @@ async def test_acomplete_returns_completion_response(mocker: MockerFixture) -> N
 
 async def test_acomplete_rate_limit_raises_after_retries(mocker: MockerFixture) -> None:
     """``OpenAIProvider.acomplete`` raises ``RateLimitError`` after exhausting retries."""
-    post = AsyncMock(return_value=make_rate_limit_response())
+    mocked_post = AsyncMock(return_value=make_rate_limit_response())
     mocker.patch(
         "httpx.AsyncClient.post",
-        new=post,
+        new=mocked_post,
     )
     provider = OpenAIProvider(api_key="sk-test")
 
     with pytest.raises(RateLimitError):
         await provider.acomplete(CompletionRequest(prompt="hi"))
 
-    assert post.await_count == 3
+    assert mocked_post.await_count == 3
 
 
 async def test_acomplete_non_success_raises_provider_error(mocker: MockerFixture) -> None:
@@ -147,7 +147,7 @@ async def test_acomplete_non_success_raises_provider_error(mocker: MockerFixture
     )
     provider = OpenAIProvider(api_key="sk-test")
 
-    with pytest.raises(ProviderError) as exc_info:
+    with pytest.raises(ProviderError) as exception_info:
         await provider.acomplete(CompletionRequest(prompt="hi"))
 
-    assert exc_info.value.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
+    assert exception_info.value.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
