@@ -1,6 +1,7 @@
 # prollm
 
 [![CI](https://img.shields.io/github/actions/workflow/status/Mukhametvaleev/prollm/ci.yml?branch=main)](../../actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-mkdocs--material-blue)](https://mukhametvaleev.github.io/prollm/)
 [![Python](https://img.shields.io/badge/python-3.14%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
