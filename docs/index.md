@@ -1,7 +1,7 @@
 # prollm
 
-Unified, provider-agnostic Python SDK for OpenAI, Anthropic, and Google Gemini completion APIs.
-One client, one request/response shape, sync and async.
+Unified, provider-agnostic Python SDK for OpenAI, Anthropic, Google Gemini, Mistral, Groq, DeepSeek,
+and Perplexity completion APIs. One client, one request/response shape, sync and async.
 
 ```python
 from prollm import GatewayClient

@@ -4,8 +4,8 @@
 [![Python](https://img.shields.io/badge/python-3.14%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Unified, provider-agnostic Python SDK for OpenAI, Anthropic, and Google Gemini completion APIs. One client, one
-request/response shape, sync and async.
+Unified, provider-agnostic Python SDK for OpenAI, Anthropic, Google Gemini, Mistral, Groq, DeepSeek, and Perplexity
+completion APIs. One client, one request/response shape, sync and async.
 
 ```python
 from prollm import GatewayClient
@@ -116,13 +116,13 @@ response = client.complete(
 
 ### `GatewayClient(api_key, provider, **kwargs)`
 
-| Parameter  | Type    | Required | Default      | Description                                                                          |
-| ---------- | ------- | :------: | ------------ | ------------------------------------------------------------------------------------ |
-| `api_key`  | `str`   |    ✅    | —            | Provider API key.                                                                    |
-| `provider` | `str`   |    ✅    | —            | One of `"anthropic"`, `"gemini"`, `"openai"`.                                        |
-| `base_url` | `str`   |          | per-provider | Override the upstream API base URL (Azure, corporate proxies, self-hosted gateways). |
-| `timeout`  | `float` |          | `30.0`       | Per-request HTTP timeout in seconds.                                                 |
-| `**kwargs` | `Any`   |          |              | Reserved for future provider-specific options.                                       |
+| Parameter  | Type    | Required | Default      | Description                                                                                        |
+| ---------- | ------- | :------: | ------------ | -------------------------------------------------------------------------------------------------- |
+| `api_key`  | `str`   |    ✅    | —            | Provider API key.                                                                                  |
+| `provider` | `str`   |    ✅    | —            | One of `"anthropic"`, `"deepseek"`, `"gemini"`, `"groq"`, `"mistral"`, `"openai"`, `"perplexity"`. |
+| `base_url` | `str`   |          | per-provider | Override the upstream API base URL (Azure, corporate proxies, self-hosted gateways).               |
+| `timeout`  | `float` |          | `30.0`       | Per-request HTTP timeout in seconds.                                                               |
+| `**kwargs` | `Any`   |          |              | Reserved for future provider-specific options.                                                     |
 
 Raises `GatewayError` if `provider` is unknown.
 
@@ -228,9 +228,13 @@ prollm/
 ├── models.py          # Pydantic CompletionRequest / CompletionResponse
 └── providers/
     ├── base.py        # BaseProvider abstract class
-    ├── openai.py
     ├── anthropic.py
-    └── gemini.py
+    ├── deepseek.py
+    ├── gemini.py
+    ├── groq.py
+    ├── mistral.py
+    ├── openai.py
+    └── perplexity.py
 tests/                 # 100% line + branch coverage
 docs/                  # MkDocs Material site source
 ```

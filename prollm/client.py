@@ -41,7 +41,8 @@ class GatewayClient:
         """Initialize the gateway with a provider name and API key.
 
         Args:
-            provider: Provider key; one of "anthropic", "gemini", or "openai".
+            provider: Provider key; one of "anthropic", "deepseek", "gemini",
+                "groq", "mistral", "openai", or "perplexity".
             api_key: API key passed through to the underlying provider.
             **kwargs: Additional keyword arguments forwarded to the provider
                 constructor (e.g. ``base_url``, ``timeout``).

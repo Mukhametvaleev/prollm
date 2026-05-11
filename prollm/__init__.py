@@ -1,4 +1,4 @@
-"""prollm: unified SDK for OpenAI, Anthropic, and Gemini LLM providers."""
+"""prollm: unified SDK for OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity."""
 
 from prollm.client import GatewayClient
 from prollm.exceptions import GatewayError, ProviderError, RateLimitError

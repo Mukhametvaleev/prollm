@@ -5,12 +5,12 @@
 
 ## Constructor arguments
 
-| Parameter  | Type    | Default      | Purpose                                              |
-| ---------- | ------- | ------------ | ---------------------------------------------------- |
-| `api_key`  | `str`   | —            | Provider API key (required).                         |
-| `provider` | `str`   | —            | `"anthropic"`, `"gemini"`, or `"openai"` (required). |
-| `base_url` | `str`   | per provider | Override the upstream API base URL.                  |
-| `timeout`  | `float` | `30.0`       | Per-request HTTP timeout in seconds.                 |
+| Parameter  | Type    | Default      | Purpose                                                                                                   |
+| ---------- | ------- | ------------ | --------------------------------------------------------------------------------------------------------- |
+| `api_key`  | `str`   | —            | Provider API key (required).                                                                              |
+| `provider` | `str`   | —            | `"anthropic"`, `"deepseek"`, `"gemini"`, `"groq"`, `"mistral"`, `"openai"`, or `"perplexity"` (required). |
+| `base_url` | `str`   | per provider | Override the upstream API base URL.                                                                       |
+| `timeout`  | `float` | `30.0`       | Per-request HTTP timeout in seconds.                                                                      |
 
 ## Custom `base_url`
 
