@@ -18,7 +18,7 @@ include = [
 [project]
 name = "prollm"
 version = "0.1.0"
-description = "Unified SDK for multiple LLM providers (OpenAI, Anthropic, Gemini)"
+description = "Unified SDK for multiple LLM providers (OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity)"
 readme = "README.md"
 requires-python = ">=3.14"
 license = "MIT"
