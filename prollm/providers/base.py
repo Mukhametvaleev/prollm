@@ -104,13 +104,13 @@ class BaseProvider(ABC):
             request.max_tokens,
         )
         async with httpx.AsyncClient() as client:
-            resp: httpx.Response = await client.post(
+            response: httpx.Response = await client.post(
                 f"{self.base_url}{payload.path}",
                 headers=payload.headers,
                 json=payload.body,
                 timeout=self.timeout,
             )
-        return self._handle_response(resp, payload.model)
+        return self._handle_response(response, payload.model)
 
     @_RETRY_DECORATOR
     def complete(
@@ -137,13 +137,13 @@ class BaseProvider(ABC):
             request.max_tokens,
         )
         with httpx.Client() as client:
-            resp: httpx.Response = client.post(
+            response: httpx.Response = client.post(
                 f"{self.base_url}{payload.path}",
                 headers=payload.headers,
                 json=payload.body,
                 timeout=self.timeout,
             )
-        return self._handle_response(resp, payload.model)
+        return self._handle_response(response, payload.model)
 
     @abstractmethod
     def _build_payload(
@@ -161,13 +161,13 @@ class BaseProvider(ABC):
 
     def _handle_response(
         self,
-        resp: httpx.Response,
+        response: httpx.Response,
         model: str,
     ) -> CompletionResponse:
         """Map an HTTP response into a ``CompletionResponse`` or raise.
 
         Args:
-            resp: Raw httpx response from the provider.
+            response: Raw httpx response from the provider.
             model: Resolved model identifier (for logging + response metadata).
 
         Returns:
@@ -177,26 +177,26 @@ class BaseProvider(ABC):
             RateLimitError: On HTTP 429.
             ProviderError: On any other non-success status.
         """
-        if resp.status_code == HTTPStatus.TOO_MANY_REQUESTS:
+        if response.status_code == HTTPStatus.TOO_MANY_REQUESTS:
             logger.warning("%s rate limit hit (model=%s)", self.name, model)
             raise RateLimitError(
                 self.name,
                 HTTPStatus.TOO_MANY_REQUESTS,
                 "Rate limit exceeded",
             )
-        if not resp.is_success:
+        if not response.is_success:
             logger.error(
                 "%s request failed: status=%s body=%s",
                 self.name,
-                resp.status_code,
-                resp.text,
+                response.status_code,
+                response.text,
             )
             raise ProviderError(
                 self.name,
-                resp.status_code,
-                resp.text,
+                response.status_code,
+                response.text,
             )
-        return self._parse_success(resp.json(), model)
+        return self._parse_success(response.json(), model)
 
     @abstractmethod
     def _parse_success(

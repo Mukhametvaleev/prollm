@@ -39,7 +39,7 @@ def test_complete_returns_completion_response(mocker: MockerFixture) -> None:
 
 def test_complete_routes_model_into_path(mocker: MockerFixture) -> None:
     """``GeminiProvider`` puts the resolved model into the URL path (Google convention)."""
-    post = mocker.patch(
+    mocked_post = mocker.patch(
         "httpx.Client.post",
         return_value=make_gemini_success_response(),
     )
@@ -51,20 +51,20 @@ def test_complete_routes_model_into_path(mocker: MockerFixture) -> None:
         ),
     )
 
-    url = post.call_args.args[0]
-    assert url.endswith("/models/gemini-1.5-flash:generateContent")
+    request_url = mocked_post.call_args.args[0]
+    assert request_url.endswith("/models/gemini-1.5-flash:generateContent")
 
 
 def test_complete_sends_api_key_header(mocker: MockerFixture) -> None:
     """``GeminiProvider`` authenticates via the ``x-goog-api-key`` header."""
-    post = mocker.patch(
+    mocked_post = mocker.patch(
         "httpx.Client.post",
         return_value=make_gemini_success_response(),
     )
     provider = GeminiProvider(api_key="gem-test")
     provider.complete(CompletionRequest(prompt="hi"))
 
-    headers = post.call_args.kwargs["headers"]
+    headers = mocked_post.call_args.kwargs["headers"]
     assert headers["x-goog-api-key"] == "gem-test"
 
 
@@ -116,10 +116,10 @@ def test_complete_non_success_raises_provider_error(mocker: MockerFixture) -> No
     )
     provider = GeminiProvider(api_key="gem-test")
 
-    with pytest.raises(ProviderError) as exc_info:
+    with pytest.raises(ProviderError) as exception_info:
         provider.complete(CompletionRequest(prompt="hi"))
 
-    assert exc_info.value.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
+    assert exception_info.value.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
 
 
 async def test_acomplete_returns_completion_response(mocker: MockerFixture) -> None:

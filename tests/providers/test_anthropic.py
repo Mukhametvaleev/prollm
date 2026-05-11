@@ -57,10 +57,10 @@ def test_complete_non_success_raises_provider_error(mocker: MockerFixture) -> No
     )
     provider = AnthropicProvider(api_key="sk-test")
 
-    with pytest.raises(ProviderError) as exc_info:
+    with pytest.raises(ProviderError) as exception_info:
         provider.complete(CompletionRequest(prompt="hi"))
 
-    assert exc_info.value.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
+    assert exception_info.value.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
 
 
 async def test_acomplete_returns_completion_response(mocker: MockerFixture) -> None:

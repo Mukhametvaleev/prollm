@@ -26,7 +26,7 @@ def test_mistral_identity() -> None:
 
 def test_mistral_complete_returns_response(mocker: MockerFixture) -> None:
     """``MistralProvider.complete`` reuses OpenAI logic and returns provider='mistral'."""
-    post = mocker.patch(
+    mocked_post = mocker.patch(
         "httpx.Client.post",
         return_value=make_openai_success_response(),
     )
@@ -35,7 +35,7 @@ def test_mistral_complete_returns_response(mocker: MockerFixture) -> None:
 
     assert response.provider == "mistral"
     assert response.text == "Hi!"
-    assert post.call_args.args[0].startswith("https://api.mistral.ai/v1")
+    assert mocked_post.call_args.args[0].startswith("https://api.mistral.ai/v1")
 
 
 def test_groq_identity() -> None:
@@ -48,7 +48,7 @@ def test_groq_identity() -> None:
 
 def test_groq_complete_returns_response(mocker: MockerFixture) -> None:
     """``GroqProvider.complete`` reuses OpenAI logic and returns provider='groq'."""
-    post = mocker.patch(
+    mocked_post = mocker.patch(
         "httpx.Client.post",
         return_value=make_openai_success_response(),
     )
@@ -57,7 +57,7 @@ def test_groq_complete_returns_response(mocker: MockerFixture) -> None:
 
     assert response.provider == "groq"
     assert response.text == "Hi!"
-    assert post.call_args.args[0].startswith("https://api.groq.com/openai/v1")
+    assert mocked_post.call_args.args[0].startswith("https://api.groq.com/openai/v1")
 
 
 def test_deepseek_identity() -> None:
@@ -70,7 +70,7 @@ def test_deepseek_identity() -> None:
 
 def test_deepseek_complete_returns_response(mocker: MockerFixture) -> None:
     """``DeepSeekProvider.complete`` reuses OpenAI logic and returns provider='deepseek'."""
-    post = mocker.patch(
+    mocked_post = mocker.patch(
         "httpx.Client.post",
         return_value=make_openai_success_response(),
     )
@@ -79,7 +79,7 @@ def test_deepseek_complete_returns_response(mocker: MockerFixture) -> None:
 
     assert response.provider == "deepseek"
     assert response.text == "Hi!"
-    assert post.call_args.args[0].startswith("https://api.deepseek.com/v1")
+    assert mocked_post.call_args.args[0].startswith("https://api.deepseek.com/v1")
 
 
 def test_perplexity_identity() -> None:
@@ -92,7 +92,7 @@ def test_perplexity_identity() -> None:
 
 def test_perplexity_complete_returns_response(mocker: MockerFixture) -> None:
     """``PerplexityProvider.complete`` reuses OpenAI logic and returns provider='perplexity'."""
-    post = mocker.patch(
+    mocked_post = mocker.patch(
         "httpx.Client.post",
         return_value=make_openai_success_response(),
     )
@@ -101,4 +101,4 @@ def test_perplexity_complete_returns_response(mocker: MockerFixture) -> None:
 
     assert response.provider == "perplexity"
     assert response.text == "Hi!"
-    assert post.call_args.args[0] == "https://api.perplexity.ai/chat/completions"
+    assert mocked_post.call_args.args[0] == "https://api.perplexity.ai/chat/completions"
