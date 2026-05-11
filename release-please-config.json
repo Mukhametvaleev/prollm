@@ -9,8 +9,8 @@
       "include-component-in-tag": false,
       "extra-files": ["prollm/__init__.py"],
       "pull-request-title-pattern": "chore: release v${version}",
-      "pull-request-header": "",
-      "pull-request-footer": "",
+      "pull-request-header": "<!-- -->",
+      "pull-request-footer": "<!-- -->",
       "changelog-sections": [
         { "type": "feat", "section": "✨ Features" },
         { "type": "fix", "section": "🐛 Bug Fixes" },
