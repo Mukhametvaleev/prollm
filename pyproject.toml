@@ -17,7 +17,7 @@ include = [
 
 [project]
 name = "prollm"
-version = "0.1.1"
+version = "0.1.2"
 description = "Unified SDK for multiple LLM providers (OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity)"
 readme = "README.md"
 requires-python = ">=3.14"
